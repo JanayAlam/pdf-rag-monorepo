@@ -22,7 +22,7 @@ const PDFItem: React.FC<IPDFItemProps> = ({ file, onRemove, isDeleting }) => {
     <div className="flex items-center gap-2 rounded-md px-3 py-2 border shrink-0 min-w-55 md:min-w-0 md:w-full">
       <Button
         variant="destructive"
-        className="rounded-full w-5! h-5! flex items-center justify-center border"
+        className="rounded-full w-6! h-6! flex items-center justify-center border"
         onClick={() => onRemove(file)}
         disabled={isDeleting}
       >

@@ -23,5 +23,11 @@ export const insertQueryController = async (req: Request, res: Response) => {
 
   const result = await retrieval.invoke(data.query);
 
-  res.json({ isSuccess: true, result });
+  res.json({
+    isSuccess: true,
+    data: {
+      result: "",
+      context: result.map((r) => r.pageContent).join("\n\n"),
+    },
+  });
 };
