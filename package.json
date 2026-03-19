@@ -10,8 +10,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "lerna run dev --parallel",
+    "dev:worker": "lerna run dev:worker --parallel",
     "build": "lerna run build",
     "start": "lerna run start",
+    "start:worker": "lerna run start:worker",
     "lint": "lerna run lint"
   },
   "keywords": [],
