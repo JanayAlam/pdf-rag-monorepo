@@ -1,13 +1,13 @@
 {
   "name": "pdf-rag",
   "version": "1.0.0",
-  "description": "",
+  "description": "PDF RAG system that ingests PDFs, embeds them into a vector database, and answers chat queries using retrieval-augmented generation.",
+  "author": "Janay Alam <janayalam820@gmail.com>",
   "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
-  "main": "index.js",
   "scripts": {
     "dev": "lerna run dev --parallel",
     "dev:worker": "lerna run dev:worker --parallel",
@@ -17,8 +17,7 @@
     "lint": "lerna run lint"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "CC-BY-NC-4.0",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "lerna": "^9.0.7"
