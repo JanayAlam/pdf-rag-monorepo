@@ -49,7 +49,9 @@ export const ChatConversation: React.FC<ChatConversationProps> = ({
                   </DialogHeader>
                   <div className="max-h-150 overflow-y-auto">
                     <div className="p-4 sm:px-6">
-                      <p className="text-sm leading-6">{result.context}</p>
+                      <p className="text-sm leading-6 whitespace-pre-line">
+                        {result.context}
+                      </p>
                     </div>
                   </div>
                   <DialogFooter className="mx-0 mt-0 mb-0 sm:px-6">

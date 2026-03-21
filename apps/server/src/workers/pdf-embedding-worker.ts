@@ -1,4 +1,5 @@
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { Worker } from "bullmq";
 import IORedis from "ioredis";
 import { getEmbeddings } from "../lib/embeddings";
@@ -21,10 +22,19 @@ export const runPDFEmbeddingWorker = () => {
       const loader = new PDFLoader(data.path);
       const docs = await loader.load();
 
+      const splitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
+      });
+
+      const texts = await splitter.splitDocuments(docs);
+
       const embeddings = getEmbeddings();
+
       const vectorStore = await getVectorStore(embeddings);
 
-      await vectorStore.addDocuments(docs);
+      await vectorStore.addDocuments(texts);
+
       console.log("Document has been uploaded to vector db");
     },
     { connection, concurrency: 100 },
