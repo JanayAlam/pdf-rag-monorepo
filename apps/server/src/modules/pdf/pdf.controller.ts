@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { queue } from "../../lib/bullmq-queue";
+import { BullMQQueue } from "../../lib/bullmq-queue";
+import { VectorStore } from "../../lib/vector-store";
 
 export const pdfUploadController = async (req: Request, res: Response) => {
   if (!req.file) {
@@ -12,7 +13,7 @@ export const pdfUploadController = async (req: Request, res: Response) => {
     return;
   }
 
-  await queue.add(
+  await BullMQQueue.getInstance().add(
     "file-ready",
     JSON.stringify({
       filename: req.file.originalname,
@@ -79,6 +80,19 @@ export const deleteFileController = async (req: Request, res: Response) => {
   }
 
   try {
+    const vectorStore = await VectorStore.getInstance();
+
+    await vectorStore.delete({
+      filter: {
+        must: [
+          {
+            key: "metadata.source",
+            match: { value: normalizedPath },
+          },
+        ],
+      },
+    });
+
     await fs.unlink(normalizedPath);
     res.json({
       isSuccess: true,
@@ -87,7 +101,7 @@ export const deleteFileController = async (req: Request, res: Response) => {
   } catch (error) {
     res.json({
       isSuccess: false,
-      message: "Couldn't delete the file",
+      message: "Couldn't delete the file and vectors",
     });
   }
 };

@@ -3,8 +3,10 @@
     "bullmq",
     "IPDF",
     "langchain",
+    "PDFRAG",
     "pdfs",
     "qdrant",
+    "textsplitters",
     "valkey"
   ]
 }
