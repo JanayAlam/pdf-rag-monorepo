@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { agent } from "../../lib/agent";
 import { getEmbeddings } from "../../lib/embeddings";
 import { getVectorStore } from "../../lib/vector-store";
 import { insertQueryValidationSchema } from "./validation-schema";
@@ -21,13 +22,24 @@ export const insertQueryController = async (req: Request, res: Response) => {
   const vectorStore = await getVectorStore(embeddings);
   const retrieval = vectorStore.asRetriever({ k: 2 });
 
-  const result = await retrieval.invoke(data.query);
+  const context = await retrieval.invoke(data.query);
+  const contextText = context.map((r) => r.pageContent).join("\n\n");
+
+  const result = await agent.invoke({
+    messages: [
+      `QUESTION: ${data.query}
+
+CONTEXT:
+${contextText}
+`,
+    ],
+  });
 
   res.json({
     isSuccess: true,
     data: {
-      output: "",
-      context: result.map((r) => r.pageContent).join("\n\n"),
+      output: result.structuredResponse.message,
+      context: contextText,
     },
   });
 };
