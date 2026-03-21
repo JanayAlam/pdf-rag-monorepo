@@ -32,7 +32,7 @@ export const ChatContainer: React.FC = () => {
         throw new Error("Couldn't get a response");
       }
 
-      setQueries((prev) => [...prev, { prompt: query, message: data }]);
+      setQueries((prev) => [...prev, { prompt: query, result: data }]);
     } catch (err) {
       toast.error((err as Error).message || "Something went wrong");
     } finally {
