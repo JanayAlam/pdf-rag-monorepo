@@ -1,5 +1,6 @@
 import { TUserQueriesAndResult } from "@/types";
 import React from "react";
+import Markdown from "react-markdown";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -62,7 +63,7 @@ export const ChatConversation: React.FC<ChatConversationProps> = ({
                 </DialogContent>
               </Dialog>
             </div>
-            <p className="text-sm leading-6">{result.output}</p>
+            <Markdown>{result.output}</Markdown>
           </div>
         ))
       ) : (

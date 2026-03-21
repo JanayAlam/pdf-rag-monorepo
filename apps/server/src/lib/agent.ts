@@ -14,13 +14,12 @@ export const agent = createAgent({
   model: basicModel,
   tools: [],
   middleware: [dynamicModelSelection, handleToolErrors],
-  systemPrompt: `
-    You are an assistant who resolved user queries based on the given context.
-
-    OUTPUT:
-      Return message based on the context, DO NOT answer on your own, if data not found on the context then say you don't know about what the user is asking.
-  `,
+  systemPrompt: `You are an assistant who answers user queries based on the given context.
+OUTPUT: Return Markdown content in the "message" field only. Use Markdown formatting when helpful (headings, lists, code fences).
+DO NOT answer on your own. If the answer is not in the context, reply exactly: "I don't know about what the user is asking."`,
   responseFormat: z.object({
-    message: z.string().describe("Agents answer based on the user queries"),
+    message: z
+      .string()
+      .describe("Markdown response based strictly on the provided context"),
   }),
 });

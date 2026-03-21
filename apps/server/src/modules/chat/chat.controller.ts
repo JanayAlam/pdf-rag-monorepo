@@ -20,7 +20,7 @@ export const insertQueryController = async (req: Request, res: Response) => {
   const embeddings = getEmbeddings();
 
   const vectorStore = await getVectorStore(embeddings);
-  const retrieval = vectorStore.asRetriever({ k: 2 });
+  const retrieval = vectorStore.asRetriever({ k: 5 });
 
   const context = await retrieval.invoke(data.query);
   const contextText = context.map((r) => r.pageContent).join("\n\n");
