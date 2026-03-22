@@ -47,53 +47,58 @@ export const FileList: React.FC<IFileListProps> = ({
   return (
     <div className="w-full flex-1 h-60">
       {files.length ? (
-        <ScrollArea className="h-full">
-          <div
-            className={cn(
-              "grid gap-2",
-              files.length == 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2",
-            )}
-          >
-            {files.map((file) => (
-              <Tooltip key={file.path}>
-                <TooltipTrigger>
-                  <Item key={file.path} className="bg-muted">
-                    <ItemMedia variant="icon">
-                      {file.filename.split(".").at(-1)?.toLowerCase() ===
-                      "pdf" ? (
-                        <FileText className="size-5" />
-                      ) : (
-                        <FileIcon className="size-5" />
-                      )}
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle className="font-bold">PDF</ItemTitle>
-                      <ItemDescription className="line-clamp-1 text-xs">
-                        {file.filename}
-                      </ItemDescription>
-                    </ItemContent>
-                    <ItemActions>
-                      <Button
-                        onClick={() => onRemove(file)}
-                        disabled={Boolean(deletingPaths[file.path])}
-                        variant="destructive"
-                      >
-                        {Boolean(deletingPaths[file.path]) ? (
-                          <Spinner />
+        <div className="h-full flex flex-col gap-3">
+          <p className="text-sm">Uploaded files</p>
+          <ScrollArea className="h-full rounded-md">
+            <div
+              className={cn(
+                "grid gap-2",
+                files.length == 1
+                  ? "grid-cols-1"
+                  : "grid-cols-1 md:grid-cols-2",
+              )}
+            >
+              {files.map((file) => (
+                <Tooltip key={file.path}>
+                  <TooltipTrigger>
+                    <Item key={file.path} className="bg-muted">
+                      <ItemMedia variant="icon">
+                        {file.filename.split(".").at(-1)?.toLowerCase() ===
+                        "pdf" ? (
+                          <FileText className="size-5" />
                         ) : (
-                          <Trash2 />
+                          <FileIcon className="size-5" />
                         )}
-                      </Button>
-                    </ItemActions>
-                  </Item>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{file.filename}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </div>
-        </ScrollArea>
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle className="font-bold">PDF</ItemTitle>
+                        <ItemDescription className="line-clamp-1 text-xs">
+                          {file.filename}
+                        </ItemDescription>
+                      </ItemContent>
+                      <ItemActions>
+                        <Button
+                          onClick={() => onRemove(file)}
+                          disabled={Boolean(deletingPaths[file.path])}
+                          variant="destructive"
+                        >
+                          {Boolean(deletingPaths[file.path]) ? (
+                            <Spinner />
+                          ) : (
+                            <Trash2 />
+                          )}
+                        </Button>
+                      </ItemActions>
+                    </Item>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{file.filename}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
       ) : (
         <div className="flex items-center justify-center h-full">
           <Empty>
