@@ -35,7 +35,6 @@ export default function RootLayout({
       <html
         lang="en"
         className={cn(
-          "h-full",
           "antialiased",
           geistSans.variable,
           geistMono.variable,
@@ -44,7 +43,7 @@ export default function RootLayout({
         )}
         suppressHydrationWarning
       >
-        <body className="min-h-full flex flex-col">
+        <body>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -52,13 +51,17 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
-              <Navbar />
-              <Show when="signed-out">
-                <div className="flex-1 flex items-center justify-center">
-                  Please signin to use the application
-                </div>
-              </Show>
-              <Show when="signed-in">{children}</Show>
+              <div className="h-lvh flex flex-col" id="1">
+                <Navbar />
+                <Show when="signed-out">
+                  <div className="flex-1 flex items-center justify-center">
+                    Please signin to use the application
+                  </div>
+                </Show>
+                <main className="flex-1">
+                  <Show when="signed-in">{children}</Show>
+                </main>
+              </div>
               <Toaster />
             </TooltipProvider>
           </ThemeProvider>

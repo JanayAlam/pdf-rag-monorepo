@@ -56,7 +56,7 @@ export const FileUploader: React.FC<IFileUploaderProps> = ({
       }}
       accept={{ "application/pdf": [".pdf"] }}
       maxFiles={1}
-      className="h-full"
+      className="h-full rounded-xl"
     >
       <DropzoneContent />
       <DropzoneEmptyState />

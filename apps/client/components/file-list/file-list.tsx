@@ -60,7 +60,7 @@ export const FileList: React.FC<IFileListProps> = ({
             >
               {files.map((file) => (
                 <Tooltip key={file.path}>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <Item key={file.path} className="bg-muted">
                       <ItemMedia variant="icon">
                         {file.filename.split(".").at(-1)?.toLowerCase() ===
