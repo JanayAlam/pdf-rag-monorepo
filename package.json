@@ -4,6 +4,10 @@
   "description": "PDF RAG system that ingests PDFs, embeds them into a vector database, and answers chat queries using retrieval-augmented generation.",
   "author": "Janay Alam <janayalam820@gmail.com>",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

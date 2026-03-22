@@ -14,7 +14,7 @@ PDF RAG system that ingests PDFs, embeds them into a vector database, and answer
 ## Requirements
 
 - Node.js (LTS recommended)
-- pnpm `10.14.0` (as specified in `package.json`)
+- pnpm `9.0.0`
 - Docker (for Valkey and Qdrant)
 
 ## Development Setup
