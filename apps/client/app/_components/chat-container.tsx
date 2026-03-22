@@ -39,8 +39,7 @@ export const ChatContainer: React.FC = () => {
                     </EmptyMedia>
                     <EmptyTitle>No queries yet</EmptyTitle>
                     <EmptyDescription>
-                      You haven&apos;t asked any questions yet. Get started by
-                      submitting prompt.
+                      You haven&apos;t asked any questions yet.
                     </EmptyDescription>
                   </EmptyHeader>
                 </Empty>
@@ -61,7 +60,6 @@ export const ChatContainer: React.FC = () => {
                   allowAttachments
                   files={files}
                   setFiles={setFiles}
-                  stop={stop}
                   isGenerating={isSubmitting}
                 />
               )}

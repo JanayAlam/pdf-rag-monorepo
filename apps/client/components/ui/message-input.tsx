@@ -143,13 +143,6 @@ export function MessageInput({
   };
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [textAreaHeight, setTextAreaHeight] = useState<number>(0);
-
-  useEffect(() => {
-    if (textAreaRef.current) {
-      setTextAreaHeight(textAreaRef.current.offsetHeight);
-    }
-  }, [props.value]);
 
   const showFileList =
     props.allowAttachments && props.files && props.files.length > 0;
@@ -224,21 +217,6 @@ export function MessageInput({
       </div>
 
       <div className="absolute right-3 top-3 z-20 flex gap-2">
-        {props.allowAttachments && (
-          <Button
-            type="button"
-            size="icon"
-            variant="outline"
-            className="h-8 w-8"
-            aria-label="Attach a file"
-            onClick={async () => {
-              const files = await showFileUploadDialog();
-              addFiles(files);
-            }}
-          >
-            <Paperclip className="h-4 w-4" />
-          </Button>
-        )}
         {isGenerating && stop ? (
           <Button
             type="button"
