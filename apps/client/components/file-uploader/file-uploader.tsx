@@ -1,15 +1,19 @@
 "use client";
 
 import { API_SERVER_URL } from "@/lib/config";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
-import { FileUploadInput } from "../inputs/file-upload-input";
+import { Dropzone, DropzoneContent, DropzoneEmptyState } from "../ui/dropzone";
 
-interface IPDFUploaderProps {
+interface IFileUploaderProps {
   fetchFileList: () => Promise<void>;
 }
 
-export const PDFUploader: React.FC<IPDFUploaderProps> = ({ fetchFileList }) => {
+export const FileUploader: React.FC<IFileUploaderProps> = ({
+  fetchFileList,
+}) => {
+  const [files, setFiles] = useState<File[]>();
+
   const onFileChange = async (file: File | null) => {
     if (!file) return;
 
@@ -33,6 +37,7 @@ export const PDFUploader: React.FC<IPDFUploaderProps> = ({ fetchFileList }) => {
       }
 
       toast.success(data.message);
+      setFiles(undefined);
       fetchFileList();
     } catch (err) {
       toast.error((err as Error).message);
@@ -40,10 +45,21 @@ export const PDFUploader: React.FC<IPDFUploaderProps> = ({ fetchFileList }) => {
   };
 
   return (
-    <FileUploadInput
-      fileType="pdf"
-      accept=".pdf,application/pdf"
-      onFileChange={onFileChange}
-    />
+    <Dropzone
+      src={files}
+      onDrop={(acceptedFiles) => {
+        setFiles(acceptedFiles);
+        onFileChange(acceptedFiles.at(0) ?? null);
+      }}
+      onError={(error) => {
+        toast.error(error.message);
+      }}
+      accept={{ "application/pdf": [".pdf"] }}
+      maxFiles={1}
+      className="h-full"
+    >
+      <DropzoneContent />
+      <DropzoneEmptyState />
+    </Dropzone>
   );
 };

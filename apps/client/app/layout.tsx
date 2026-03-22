@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/headers/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { ClerkProvider, Show } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -50,14 +51,16 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            <Show when="signed-out">
-              <div className="flex-1 flex items-center justify-center">
-                Please signin to use the application
-              </div>
-            </Show>
-            <Show when="signed-in">{children}</Show>
-            <Toaster />
+            <TooltipProvider>
+              <Navbar />
+              <Show when="signed-out">
+                <div className="flex-1 flex items-center justify-center">
+                  Please signin to use the application
+                </div>
+              </Show>
+              <Show when="signed-in">{children}</Show>
+              <Toaster />
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>
